@@ -1,0 +1,65 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+		<link rel="stylesheet" href="css/custom.css">
+
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-resource.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-route.min.js"></script>
+</head>
+
+<body>
+	<div class="container">
+		<header>
+          <ul class="list-inline">
+            <li><a href="search.html">Search for shows</a></li>
+            <li><a href="">Schedules</a></li>
+            <li><a href="">Favorites</a></li>
+          </ul>
+          <hr >
+        </header>
+	<div class="row">
+		<div class="col-md-3">
+			<h2>{{show.name}}</h2>
+			<small ng-repeat="s in show.genres">{{s}} |</small>
+			<div ng-if="show.image!==null">
+				<img ng-src="{{show.image.medium}}" class="img-thumbnail">
+			</div>
+			<div ng-if="show.image===null">
+				<img ng-src="/image/default.jpg" class="img-thumbnail">
+			</div>
+		</div>
+		<div class="col-md-8">
+			<div class="row">
+				<h3>SUMMARY</h3>
+				<hr >
+				<p ng-bind-html='show.summary | trustHTML'></p>
+				<span style="font-size:200%;color:DarkOrange;">&starf;{{show.rating.average}}</span>
+				<p>Language: {{show.language}}</p>
+				<b><small>Watch it every </small>
+					<small ng-repeat="days in show.schedule.days">{{days}}, at </small>
+					<small>{{show.schedule.time}} on {{show.network.name}} </small>
+				</b>
+				<p><small><b>Runtime: {{show.runtime}} min</b></small></p>
+				<div class="col-md-12">
+					<h3>CAST</h3>
+					<hr >
+					<div ng-repeat="c in show._embedded.cast">					
+						<div class="panel panel-default">
+							<div ng-if="c.person.image===null">
+								<img ng-src="image/default.jpg" width="80" height="80">
+								<span><b>{{c.person.name}} as <small>{{c.character.name}}</small></b></span>
+							</div>
+							<div ng-if="c.person.image!==null">
+								<img ng-src="{{c.person.image.medium}}" width="80" height="80">
+								<span><b>{{c.person.name}} as <small>{{c.character.name}}</small></b></span>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</body>

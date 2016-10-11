@@ -1,0 +1,46 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+		<link rel="stylesheet" href="css/custom.css">
+
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-resource.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-route.min.js"></script>
+</head>
+<body>
+	<div ng-if="!characters.length==0">
+		<h3>Search Results</h3>
+	</div>
+	<div ng-show="characters.length==0">
+		<h3>No Results found</h3>
+	</div>
+<div ng-repeat="s in characters">
+	<div class="panel panel-primary">
+		<div class="row">
+			<div class="col-md-3">
+				<div ng-if="s.show.image!==null">
+					<img ng-src="{{s.show.image.medium}}" class="img-thumbnail" style="max-height=100%"></img>
+				</div>
+				<div ng-if="s.show.image===null">
+					<img ng-src="image/default.jpg" class="img-responsive" style="max-height=100%"></img>
+				</div>
+			</div>
+			<div class="col-md-9">
+				<div class="panel-heading">
+					<div class="panel-title">
+						<h3 class="text-uppercase">{{s.show.name}}</h3>
+					</div>
+					<span class="control-label1" ng-repeat="g in s.show.genres">{{g}}|</span>					
+				</div>
+				<div class="panel-body">
+					<span style="font-size:200%;color:DarkOrange;">&starf;{{s.show.rating.average}}</span>
+					<p ng-bind-html="s.show.summary | trustHTML">
+					<p> Language: {{s.show.language}}</p>
+					<a href="/show/{{s.show.id}}" class="btn btn-primary">Details</a>					
+				</div>
+			</div>
+   		</div>
+   	</div>
+</div>
+</body>	
+</html>
